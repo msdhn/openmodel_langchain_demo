@@ -6,7 +6,7 @@ import eu.msdhn.openmodel_langchain.demo.exception.AssistantException;
 import eu.msdhn.openmodel_langchain.demo.service.AssistantService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,11 +18,11 @@ public class ChatController {
     private final AssistantService assistantService;
 
     @PostMapping("/chat")
-    public ChatResponse chat(@RequestBody ChatRequest request) {
-        if (request == null || request.message() == null || request.message().isBlank()) {
+    public ChatResponse chat(@RequestParam("message") String message) {
+        if (message == null || message.isBlank()) {
             throw new AssistantException("message is required.");
         }
-        return assistantService.generateSupportResponse(request);
+        return assistantService.generateSupportResponse(new ChatRequest("web-session", message));
     }
 
 }

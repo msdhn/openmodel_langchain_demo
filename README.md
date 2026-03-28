@@ -77,6 +77,8 @@ ollama pull llama3.1:8b
 Optional alternatives:
 - `qwen2.5:7b` (often strong instruction following)
 
+
+
 ### 3. Configure application properties
 
 Create or update `src/main/resources/application.properties`:
@@ -95,7 +97,51 @@ assistant.safety.strict-mode=true
 
 Note: property keys may change slightly when we add concrete config classes.
 
-### 4. Run the app
+### 4. Start Qdrant (Local Vector DB via Docker)
+
+Pull image:
+
+```bash
+docker pull qdrant/qdrant:latest
+```
+
+Run container:
+
+```bash
+docker run -d \
+  --name qdrant-local \
+  -p 6333:6333 \
+  -p 6334:6334 \
+  qdrant/qdrant:latest
+```
+
+Health check:
+
+```bash
+curl http://localhost:6333/collections
+```
+
+Run with persistent storage (recommended):
+
+```bash
+docker run -d \
+  --name qdrant-local \
+  -p 6333:6333 \
+  -p 6334:6334 \
+  -v "$(pwd)/.qdrant_storage:/qdrant/storage" \
+  qdrant/qdrant:latest
+```
+
+http://localhost:6333/dashboard#/welcome
+
+Stop and remove:
+
+```bash
+docker stop qdrant-local
+docker rm qdrant-local
+```
+
+### 5. Run the app
 
 ```bash
 ./mvnw spring-boot:run
@@ -181,4 +227,3 @@ Next implementation milestones:
 3. Implement `SafetyService` (input/output checks)
 4. Implement `MemoryService` (session memory)
 5. Add demo test cases and sample scripts
-

@@ -59,7 +59,7 @@ public class BankingSupportTools {
                 .trim();
     }
 
-    @Tool(value = "Credit card outstanding details",returnBehavior = ReturnBehavior.IMMEDIATE)
+    @Tool(value = "Use for Credit card outstanding details", returnBehavior = ReturnBehavior.IMMEDIATE)
     public String creditCardOutstandingDetails(String creditCardNumber) {
         return creditCardNumber + """
                  has outstanding of 100 Euro 
