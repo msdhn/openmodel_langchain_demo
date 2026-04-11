@@ -2,12 +2,14 @@ package eu.msdhn.openmodel_langchain.demo.rag.chunking;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 @Component
+@ConditionalOnProperty(name = "assistant.rag.chunker-type", havingValue = "sliding-window")
 public class SlidingWindowTextChunker implements TextChunker {
-
     private final int chunkSize;
     private final int chunkOverlap;
 

@@ -1,4 +1,4 @@
-# Concepts To Implement
+to build the # Concepts To Implement
 
 Ordered roadmap to evolve this demo into a full application.
 
@@ -40,11 +40,25 @@ Ordered roadmap to evolve this demo into a full application.
 
 ## 6. RAG Backend
 
-- Document ingestion pipeline
-- Chunking strategy
-- Embedding model selection
-- Vector store integration
-- Retrieval + reranking + citations
+- Backend
+  - Document ingestion pipeline
+  - Chunking strategy
+  - Embedding model selection
+  - Vector store integration
+  - Duplicate detection / dedup on re-ingestion
+  - Metadata enrichment (extract title, headings, dates from documents)
+  - Incremental ingestion (skip unchanged files by hash or modified timestamp)
+  - Embedding dimension alignment (config vs actual model output)
+- Retrieval
+  - Semantic search endpoint (query Qdrant, return top-K chunks)
+  - Context injection into LLM prompt
+  - Relevance score threshold (discard low-similarity chunks)
+  - Reranking (cross-encoder or LLM-based)
+  - Citations and source attribution
+- Chunking improvements
+  - Sentence-aware or section-aware splitting
+  - Per-document-type chunk strategies (tables, slides vs prose)
+
 
 ## 7. Evaluation
 

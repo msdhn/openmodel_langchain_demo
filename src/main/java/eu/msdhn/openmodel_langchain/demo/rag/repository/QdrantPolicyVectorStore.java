@@ -1,4 +1,4 @@
-package eu.msdhn.openmodel_langchain.demo.repository;
+package eu.msdhn.openmodel_langchain.demo.rag.repository;
 
 import dev.langchain4j.data.document.Metadata;
 import dev.langchain4j.data.embedding.Embedding;
@@ -6,7 +6,7 @@ import dev.langchain4j.data.segment.TextSegment;
 import dev.langchain4j.model.embedding.EmbeddingModel;
 import dev.langchain4j.store.embedding.EmbeddingStore;
 import dev.langchain4j.store.embedding.qdrant.QdrantEmbeddingStore;
-import eu.msdhn.openmodel_langchain.demo.service.model.PolicyVectorDocument;
+import eu.msdhn.openmodel_langchain.demo.rag.model.PolicyVectorDocument;
 import io.qdrant.client.QdrantClient;
 import io.qdrant.client.QdrantGrpcClient;
 import io.qdrant.client.grpc.Collections;
@@ -16,10 +16,12 @@ import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
+@ConditionalOnProperty(name = "assistant.rag.vector-store", havingValue = "qdrant")
 public class QdrantPolicyVectorStore implements PolicyVectorStore {
 
     private final EmbeddingModel embeddingModel;

@@ -1,6 +1,6 @@
 package eu.msdhn.openmodel_langchain.demo.controller;
 
-import eu.msdhn.openmodel_langchain.demo.job.PolicyMarkdownIngestionJob;
+import eu.msdhn.openmodel_langchain.demo.rag.job.PolicyDocumentIngestionJob;
 
 import java.util.Map;
 import java.util.UUID;
@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class IngestionController {
 
-    private final PolicyMarkdownIngestionJob policyMarkdownIngestionJob;
+    private final PolicyDocumentIngestionJob policyDocumentIngestionJob;
 
     @Qualifier("ingestionExecutorService")
     private final ExecutorService ingestionExecutorService;
@@ -37,7 +37,7 @@ public class IngestionController {
         String jobId = UUID.randomUUID().toString();
         Future<Integer> task = ingestionExecutorService.submit(() -> {
             log.info("Ingestion job started. jobId={}", jobId);
-            int chunks = policyMarkdownIngestionJob.ingestPolicies();
+            int chunks = policyDocumentIngestionJob.ingestPolicies();
             log.info("Ingestion job finished. jobId={} chunks={}", jobId, chunks);
             return chunks;
         });

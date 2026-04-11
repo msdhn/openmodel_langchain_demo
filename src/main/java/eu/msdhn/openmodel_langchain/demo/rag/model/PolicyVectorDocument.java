@@ -1,4 +1,4 @@
-package eu.msdhn.openmodel_langchain.demo.service.model;
+package eu.msdhn.openmodel_langchain.demo.rag.model;
 
 import java.util.Map;
 
